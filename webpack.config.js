@@ -1,5 +1,5 @@
 var path = require("path");
-var assetPath = path.join(__dirname, ".", "public");
+var assetPath = path.join(__dirname, "client", "public");
 var webpack = require('webpack');
 
 function createConfig(isDebug) {

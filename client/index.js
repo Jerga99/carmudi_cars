@@ -7,10 +7,8 @@ import {Router, Route, IndexRoute, browserHistory} from "react-router";
 import App from './src/components/app';
 import Component1 from './src/components/cars_components/Component1';
 
-import * as actions from "./src/actions/index";
-
 //Styles
-import './src/style/vendors/css/Grid.css'
+import './src/style/vendors/css/Grid.css';
 import './src/style/vendors/css/normalize.css';
 import "./src/style/vendors/css/ionicons.min.css";
 import './src/style/resources/sass/app.scss';
