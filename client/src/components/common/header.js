@@ -1,23 +1,16 @@
-import React, {Component} from "react";
-import {connect} from "react-redux";
-import {Link} from "react-router";
-import {path} from "path";
+import React from 'react';
+import {Component} from "react";
 import LogoImg from "../../style/resources/img/logo/logo_white.png";
 
 class Header extends Component {
 
-    Constructor(){
-        var assetPath = path.join(__dirname, ".", "public");
-
-        console.log(assetPath);
-    }
-
     render(){
+        const linktToLogo = `public/${LogoImg}`;
         return (
             <header className="header__main__base">
 
                 <div className="header__main__base__logo">
-                    <img src={LogoImg} alt="carmudi"/>
+                    <img src={linktToLogo} alt="carmudi"/>
                 </div>
 
             </header>

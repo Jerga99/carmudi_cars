@@ -6,7 +6,7 @@ const router = require("./router");
 const cors = require("cors");
 const path = require("path");
 
-const assetPath = path.join(__dirname, "..", "client/public");
+const assetPath = path.join(__dirname, "..", "client");
 
 const app = express();
 
