@@ -18,6 +18,7 @@ class Cars extends React.Component {
         }
         else {
             cars = algorithms.parseJson(this.props.carsJson);
+            cars = algorithms.filterByText(cars,'name', this.props.searchText);
 
             return(<div className='row'>
                     <InputSearch></InputSearch>
@@ -39,7 +40,8 @@ class Cars extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        carsJson: state.carsJson
+        carsJson: state.carsJson,
+        searchText: state.searchText
     };
 }
 

@@ -1,11 +1,13 @@
 import * as redux from 'redux';
 import thunk from 'redux-thunk';
 import {carsReducer} from './cars_reducer';
+import {searchReducer} from './search_reducer';
 
 export var configure = (initialState = {}) => {
 
   const reducer = redux.combineReducers({
-     carsJson: carsReducer
+     carsJson: carsReducer,
+      searchText: searchReducer
   });
 
   var store = redux.createStore(reducer, initialState,

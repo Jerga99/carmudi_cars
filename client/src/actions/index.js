@@ -2,8 +2,6 @@ import axios from 'axios';
 import {types} from './types';
 
 const fetchOfferSuccess = (JSON) => {
-    /* eslint-disable no-alert, no-console */
-    console.log(JSON);
     const carsJSON = JSON.data.cars;
     return {
         type: types.FETCH_CARS,
@@ -17,5 +15,14 @@ export const fetchCars = () => {
         axios.get('/cars').then( resp => {
            return dispatch(fetchOfferSuccess(resp));
         });
+    };
+};
+
+
+export const setSearchText = (searchText) => {
+
+    return {
+        type: types.SET_SEARCH_TEXT,
+        searchText
     };
 };

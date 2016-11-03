@@ -11,10 +11,8 @@ class CarsList extends React.Component {
     redirectToSingleView(id){
         return function() {
             /* eslint-disable no-alert, no-console */
-            console.log('PCEI');
             browserHistory.push(`car/${id}`);};
     }
-
 
     renderCars(){
         /* eslint-disable no-alert, no-console */

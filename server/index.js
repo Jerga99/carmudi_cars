@@ -15,6 +15,8 @@ app.use(cors());
 app.use(bodyParser({ type : '*/*'}));
 app.use(express.static(assetPath));
 
+router(app);
+
 app.get('*', function(req, res) {
 
     res.sendFile(path.resolve(assetPath, 'index.html'));

@@ -69,11 +69,11 @@
 	
 	var _app2 = _interopRequireDefault(_app);
 	
-	var _Cars_main = __webpack_require__(266);
+	var _Cars_main = __webpack_require__(264);
 	
 	var _Cars_main2 = _interopRequireDefault(_Cars_main);
 	
-	var _Cars_singleView = __webpack_require__(307);
+	var _Cars_singleView = __webpack_require__(269);
 	
 	var _Cars_singleView2 = _interopRequireDefault(_Cars_singleView);
 	
@@ -27820,7 +27820,7 @@
 	
 	var _header2 = _interopRequireDefault(_header);
 	
-	var _footer = __webpack_require__(264);
+	var _footer = __webpack_require__(263);
 	
 	var _footer2 = _interopRequireDefault(_footer);
 	
@@ -27913,8 +27913,7 @@
 	exports.default = Header;
 
 /***/ },
-/* 263 */,
-/* 264 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27980,8 +27979,7 @@
 	exports.default = Footer;
 
 /***/ },
-/* 265 */,
-/* 266 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27996,17 +27994,17 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Cars_list = __webpack_require__(267);
+	var _Cars_list = __webpack_require__(265);
 	
 	var _Cars_list2 = _interopRequireDefault(_Cars_list);
 	
-	var _index = __webpack_require__(269);
+	var _index = __webpack_require__(267);
 	
 	var _index2 = _interopRequireDefault(_index);
 	
 	var _reactRedux = __webpack_require__(160);
 	
-	var _input_search = __webpack_require__(308);
+	var _input_search = __webpack_require__(268);
 	
 	var _input_search2 = _interopRequireDefault(_input_search);
 	
@@ -28040,6 +28038,7 @@
 	                );
 	            } else {
 	                cars = _index2.default.parseJson(this.props.carsJson);
+	                cars = _index2.default.filterByText(cars, 'name', this.props.searchText);
 	
 	                return _react2.default.createElement(
 	                    'div',
@@ -28066,14 +28065,15 @@
 	
 	function mapStateToProps(state) {
 	    return {
-	        carsJson: state.carsJson
+	        carsJson: state.carsJson,
+	        searchText: state.searchText
 	    };
 	}
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Cars);
 
 /***/ },
-/* 267 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28088,7 +28088,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Cars_detail = __webpack_require__(268);
+	var _Cars_detail = __webpack_require__(266);
 	
 	var _Cars_detail2 = _interopRequireDefault(_Cars_detail);
 	
@@ -28116,7 +28116,6 @@
 	        value: function redirectToSingleView(id) {
 	            return function () {
 	                /* eslint-disable no-alert, no-console */
-	                console.log('PCEI');
 	                _reactRouter.browserHistory.push('car/' + id);
 	            };
 	        }
@@ -28154,7 +28153,7 @@
 	exports.default = CarsList;
 
 /***/ },
-/* 268 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28246,10 +28245,23 @@
 	exports.default = CarsDetail;
 
 /***/ },
-/* 269 */
+/* 267 */
 /***/ function(module, exports) {
 
 	"use strict";
+	
+	var filterByTextImpl = function filterByTextImpl(cars, filterType, searchText) {
+	
+	    var filteredCars;
+	
+	    filteredCars = cars.filter(function (car) {
+	        /* eslint-disable no-debugger */
+	        var text = car[filterType].toLowerCase();
+	        return searchText.length === 0 || text.indexOf(searchText.toLowerCase()) > -1;
+	    });
+	
+	    return filteredCars;
+	};
 	
 	module.exports = {
 	
@@ -28257,14 +28269,231 @@
 	
 	        var arr = [];
 	        Object.keys(jsonObj).map(function (el) {
-	            /* eslint-disable no-alert, no-console */
 	            arr.push(jsonObj[el]);
 	        });
 	
 	        return arr;
+	    },
+	
+	    filterByText: function filterByText(cars, filterType, searchText) {
+	
+	        return filterByTextImpl(cars, filterType, searchText);
+	    }
+	};
+
+/***/ },
+/* 268 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(160);
+	
+	var _index = __webpack_require__(270);
+	
+	var actions = _interopRequireWildcard(_index);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var InputSearch = function (_Component) {
+	    _inherits(InputSearch, _Component);
+	
+	    function InputSearch() {
+	        _classCallCheck(this, InputSearch);
+	
+	        return _possibleConstructorReturn(this, (InputSearch.__proto__ || Object.getPrototypeOf(InputSearch)).apply(this, arguments));
 	    }
 	
-	};
+	    _createClass(InputSearch, [{
+	        key: 'render',
+	        value: function render() {
+	            var _this2 = this;
+	
+	            var _props = this.props,
+	                dispatch = _props.dispatch,
+	                searchText = _props.searchText;
+	
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'search__main__base' },
+	                _react2.default.createElement('input', { type: 'text', placeholder: 'Filter by name', ref: 'searchText', value: searchText,
+	                    onChange: function onChange() {
+	                        searchText = _this2.refs.searchText.value;
+	                        dispatch(actions.setSearchText(searchText));
+	                    } })
+	            );
+	        }
+	    }]);
+	
+	    return InputSearch;
+	}(_react.Component);
+	
+	exports.default = (0, _reactRedux.connect)(function (state) {
+	    return {
+	        searchText: state.searchText
+	    };
+	})(InputSearch);
+
+/***/ },
+/* 269 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(160);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var CarsSingleView = function (_React$Component) {
+	    _inherits(CarsSingleView, _React$Component);
+	
+	    function CarsSingleView(props) {
+	        _classCallCheck(this, CarsSingleView);
+	
+	        return _possibleConstructorReturn(this, (CarsSingleView.__proto__ || Object.getPrototypeOf(CarsSingleView)).call(this, props));
+	    }
+	
+	    _createClass(CarsSingleView, [{
+	        key: 'findCarById',
+	        value: function findCarById() {
+	            var _this2 = this;
+	
+	            var foundCar = {};
+	
+	            this.props.carsJson.forEach(function (car) {
+	                if (car.id === _this2.props.params.id) {
+	                    foundCar = car;
+	                }
+	            });
+	
+	            return foundCar;
+	        }
+	    }, {
+	        key: 'limitDescription',
+	        value: function limitDescription(text, limit) {
+	            var shorText;
+	            if (text.length > limit) {
+	                shorText = text.substr(0, limit);
+	            }
+	
+	            return shorText + '...';
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var car = this.findCarById();
+	            if (Object.keys(car).length == 0) {
+	                console.log('IN NOT CAR');
+	                console.log(car);
+	                return _react2.default.createElement(
+	                    'h1',
+	                    null,
+	                    'Loading'
+	                );
+	            } else {
+	                console.log('IN  CAR');
+	                console.log(car);
+	                return _react2.default.createElement(
+	                    'div',
+	                    { className: 'row' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'car-singleview__main__base' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'car-singleview__main__base__header' },
+	                            _react2.default.createElement(
+	                                'h2',
+	                                null,
+	                                car.name
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'car-singleview__main__base__left' },
+	                            _react2.default.createElement('img', { src: car.main_picture, alt: '' })
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'car-singleview__main__base__right' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'car-singleview__main__base__right__price' },
+	                                _react2.default.createElement(
+	                                    'h2',
+	                                    null,
+	                                    car.price
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'car-singleview__main__base__right__location' },
+	                                _react2.default.createElement(
+	                                    'p',
+	                                    null,
+	                                    car.location
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'car-singleview__main__base__right__description' },
+	                                _react2.default.createElement(
+	                                    'p',
+	                                    null,
+	                                    this.limitDescription(car.description, 200)
+	                                )
+	                            )
+	                        )
+	                    )
+	                );
+	            }
+	        }
+	    }]);
+	
+	    return CarsSingleView;
+	}(_react2.default.Component);
+	
+	function mapStateToProps(state) {
+	    return {
+	        carsJson: state.carsJson
+	    };
+	}
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(CarsSingleView);
 
 /***/ },
 /* 270 */
@@ -28275,7 +28504,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.fetchCars = undefined;
+	exports.setSearchText = exports.fetchCars = undefined;
 	
 	var _axios = __webpack_require__(271);
 	
@@ -28286,8 +28515,6 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var fetchOfferSuccess = function fetchOfferSuccess(JSON) {
-	    /* eslint-disable no-alert, no-console */
-	    console.log(JSON);
 	    var carsJSON = JSON.data.cars;
 	    return {
 	        type: _types.types.FETCH_CARS,
@@ -28301,6 +28528,14 @@
 	        _axios2.default.get('/cars').then(function (resp) {
 	            return dispatch(fetchOfferSuccess(resp));
 	        });
+	    };
+	};
+	
+	var setSearchText = exports.setSearchText = function setSearchText(searchText) {
+	
+	    return {
+	        type: _types.types.SET_SEARCH_TEXT,
+	        searchText: searchText
 	    };
 	};
 
@@ -29447,7 +29682,8 @@
 	});
 	var types = exports.types = {
 	
-	    FETCH_CARS: 'FETCH_CARS'
+	    FETCH_CARS: 'FETCH_CARS',
+	    SET_SEARCH_TEXT: 'SET_SEARCH_TEXT'
 	};
 
 /***/ },
@@ -29986,6 +30222,8 @@
 	
 	var _cars_reducer = __webpack_require__(306);
 	
+	var _search_reducer = __webpack_require__(307);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -29995,7 +30233,8 @@
 	
 	
 	    var reducer = redux.combineReducers({
-	        carsJson: _cars_reducer.carsReducer
+	        carsJson: _cars_reducer.carsReducer,
+	        searchText: _search_reducer.searchReducer
 	    });
 	
 	    var store = redux.createStore(reducer, initialState, redux.compose(redux.applyMiddleware(_reduxThunk2.default), window.devToolsExtension ? window.devToolsExtension() : function (f) {
@@ -30047,16 +30286,15 @@
 	var _types = __webpack_require__(289);
 	
 	var carsReducer = exports.carsReducer = function carsReducer() {
-	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 	    var action = arguments[1];
 	
 	
 	    switch (action.type) {
 	        case _types.types.FETCH_CARS:
-	            console.log(action.carsJSON);
 	            return action.carsJSON;
 	        default:
-	            return [];
+	            return state;
 	    }
 	};
 
@@ -30069,188 +30307,22 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.searchReducer = undefined;
 	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	var _types = __webpack_require__(289);
 	
-	var _react = __webpack_require__(2);
+	var searchReducer = exports.searchReducer = function searchReducer() {
+	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+	    var action = arguments[1];
 	
-	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRedux = __webpack_require__(160);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var CarsSingleView = function (_React$Component) {
-	    _inherits(CarsSingleView, _React$Component);
-	
-	    function CarsSingleView(props) {
-	        _classCallCheck(this, CarsSingleView);
-	
-	        return _possibleConstructorReturn(this, (CarsSingleView.__proto__ || Object.getPrototypeOf(CarsSingleView)).call(this, props));
+	    switch (action.type) {
+	        case _types.types.SET_SEARCH_TEXT:
+	            return action.searchText;
+	        default:
+	            return state;
 	    }
-	
-	    _createClass(CarsSingleView, [{
-	        key: 'findCarById',
-	        value: function findCarById() {
-	            var _this2 = this;
-	
-	            var foundCar = {};
-	
-	            this.props.carsJson.forEach(function (car) {
-	                if (car.id === _this2.props.params.id) {
-	                    foundCar = car;
-	                }
-	            });
-	
-	            return foundCar;
-	        }
-	    }, {
-	        key: 'limitDescription',
-	        value: function limitDescription(text, limit) {
-	            var shorText;
-	            if (text.length > limit) {
-	                shorText = text.substr(0, limit);
-	            }
-	
-	            return shorText + '...';
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var car = this.findCarById();
-	            if (Object.keys(car).length == 0) {
-	                console.log('IN NOT CAR');
-	                console.log(car);
-	                return _react2.default.createElement(
-	                    'h1',
-	                    null,
-	                    'Loading'
-	                );
-	            } else {
-	                console.log('IN  CAR');
-	                console.log(car);
-	                return _react2.default.createElement(
-	                    'div',
-	                    { className: 'row' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'car-singleview__main__base' },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'car-singleview__main__base__header' },
-	                            _react2.default.createElement(
-	                                'h2',
-	                                null,
-	                                car.name
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'car-singleview__main__base__left' },
-	                            _react2.default.createElement('img', { src: car.main_picture, alt: '' })
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'car-singleview__main__base__right' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'car-singleview__main__base__right__price' },
-	                                _react2.default.createElement(
-	                                    'h2',
-	                                    null,
-	                                    car.price
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'car-singleview__main__base__right__location' },
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    null,
-	                                    car.location
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'car-singleview__main__base__right__description' },
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    null,
-	                                    this.limitDescription(car.description, 200)
-	                                )
-	                            )
-	                        )
-	                    )
-	                );
-	            }
-	        }
-	    }]);
-	
-	    return CarsSingleView;
-	}(_react2.default.Component);
-	
-	function mapStateToProps(state) {
-	    return {
-	        carsJson: state.carsJson
-	    };
-	}
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(CarsSingleView);
-
-/***/ },
-/* 308 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(2);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var InputSearch = function (_Component) {
-	    _inherits(InputSearch, _Component);
-	
-	    function InputSearch() {
-	        _classCallCheck(this, InputSearch);
-	
-	        return _possibleConstructorReturn(this, (InputSearch.__proto__ || Object.getPrototypeOf(InputSearch)).apply(this, arguments));
-	    }
-	
-	    _createClass(InputSearch, [{
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'search__main__base' },
-	                _react2.default.createElement('input', { type: 'text', placeholder: 'Filter by name' })
-	            );
-	        }
-	    }]);
-	
-	    return InputSearch;
-	}(_react.Component);
-	
-	exports.default = InputSearch;
+	};
 
 /***/ }
 /******/ ]);
