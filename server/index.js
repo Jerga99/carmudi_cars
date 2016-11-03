@@ -14,7 +14,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser({ type : '*/*'}));
 
-//router(app);
+router(app);
 
 //Server setup
 

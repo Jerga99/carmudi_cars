@@ -1,7 +1,9 @@
 import React from 'react';
 import CarsList from './Cars_list';
+import {connect} from 'react-redux';
 
 class Cars extends React.Component {
+
 
     render(){
         return(
@@ -12,4 +14,6 @@ class Cars extends React.Component {
     }
 }
 
-export default Cars;
+
+
+export default connect()(Cars);
