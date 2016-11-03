@@ -73,11 +73,11 @@
 	
 	var _Cars_main2 = _interopRequireDefault(_Cars_main);
 	
-	var _Cars_singleView = __webpack_require__(269);
+	var _Cars_singleView = __webpack_require__(289);
 	
 	var _Cars_singleView2 = _interopRequireDefault(_Cars_singleView);
 	
-	var _index = __webpack_require__(270);
+	var _index = __webpack_require__(269);
 	
 	var actions = _interopRequireWildcard(_index);
 	
@@ -27875,6 +27875,8 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactRouter = __webpack_require__(200);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27901,7 +27903,11 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'header__main__base__logo' },
-	                    _react2.default.createElement('img', { src: 'http://filipjerga.com/logo_white.png', alt: 'carmudi' })
+	                    _react2.default.createElement(
+	                        _reactRouter.Link,
+	                        { to: '/' },
+	                        _react2.default.createElement('img', { src: 'http://filipjerga.com/logo_white.png', alt: 'carmudi' })
+	                    )
 	                )
 	            );
 	        }
@@ -28299,7 +28305,7 @@
 	
 	var _reactRedux = __webpack_require__(160);
 	
-	var _index = __webpack_require__(270);
+	var _index = __webpack_require__(269);
 	
 	var actions = _interopRequireWildcard(_index);
 	
@@ -28361,156 +28367,13 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(2);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(160);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var CarsSingleView = function (_React$Component) {
-	    _inherits(CarsSingleView, _React$Component);
-	
-	    function CarsSingleView(props) {
-	        _classCallCheck(this, CarsSingleView);
-	
-	        return _possibleConstructorReturn(this, (CarsSingleView.__proto__ || Object.getPrototypeOf(CarsSingleView)).call(this, props));
-	    }
-	
-	    _createClass(CarsSingleView, [{
-	        key: 'findCarById',
-	        value: function findCarById() {
-	            var _this2 = this;
-	
-	            var foundCar = {};
-	
-	            this.props.carsJson.forEach(function (car) {
-	                if (car.id === _this2.props.params.id) {
-	                    foundCar = car;
-	                }
-	            });
-	
-	            return foundCar;
-	        }
-	    }, {
-	        key: 'limitDescription',
-	        value: function limitDescription(text, limit) {
-	            var shorText;
-	            if (text.length > limit) {
-	                shorText = text.substr(0, limit);
-	            }
-	
-	            return shorText + '...';
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var car = this.findCarById();
-	            if (Object.keys(car).length == 0) {
-	                console.log('IN NOT CAR');
-	                console.log(car);
-	                return _react2.default.createElement(
-	                    'h1',
-	                    null,
-	                    'Loading'
-	                );
-	            } else {
-	                console.log('IN  CAR');
-	                console.log(car);
-	                return _react2.default.createElement(
-	                    'div',
-	                    { className: 'row' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'car-singleview__main__base' },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'car-singleview__main__base__header' },
-	                            _react2.default.createElement(
-	                                'h2',
-	                                null,
-	                                car.name
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'car-singleview__main__base__left' },
-	                            _react2.default.createElement('img', { src: car.main_picture, alt: '' })
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'car-singleview__main__base__right' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'car-singleview__main__base__right__price' },
-	                                _react2.default.createElement(
-	                                    'h2',
-	                                    null,
-	                                    car.price
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'car-singleview__main__base__right__location' },
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    null,
-	                                    car.location
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'car-singleview__main__base__right__description' },
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    null,
-	                                    this.limitDescription(car.description, 200)
-	                                )
-	                            )
-	                        )
-	                    )
-	                );
-	            }
-	        }
-	    }]);
-	
-	    return CarsSingleView;
-	}(_react2.default.Component);
-	
-	function mapStateToProps(state) {
-	    return {
-	        carsJson: state.carsJson
-	    };
-	}
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(CarsSingleView);
-
-/***/ },
-/* 270 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
 	exports.setSearchText = exports.fetchCars = undefined;
 	
-	var _axios = __webpack_require__(271);
+	var _axios = __webpack_require__(270);
 	
 	var _axios2 = _interopRequireDefault(_axios);
 	
-	var _types = __webpack_require__(289);
+	var _types = __webpack_require__(288);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -28540,27 +28403,27 @@
 	};
 
 /***/ },
+/* 270 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	module.exports = __webpack_require__(271);
+
+/***/ },
 /* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	module.exports = __webpack_require__(272);
-
-/***/ },
-/* 272 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var defaults = __webpack_require__(273);
-	var utils = __webpack_require__(274);
-	var dispatchRequest = __webpack_require__(275);
-	var InterceptorManager = __webpack_require__(284);
-	var isAbsoluteURL = __webpack_require__(285);
-	var combineURLs = __webpack_require__(286);
-	var bind = __webpack_require__(287);
-	var transformData = __webpack_require__(279);
+	var defaults = __webpack_require__(272);
+	var utils = __webpack_require__(273);
+	var dispatchRequest = __webpack_require__(274);
+	var InterceptorManager = __webpack_require__(283);
+	var isAbsoluteURL = __webpack_require__(284);
+	var combineURLs = __webpack_require__(285);
+	var bind = __webpack_require__(286);
+	var transformData = __webpack_require__(278);
 	
 	function Axios(defaultConfig) {
 	  this.defaults = utils.merge({}, defaultConfig);
@@ -28635,7 +28498,7 @@
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(288);
+	axios.spread = __webpack_require__(287);
 	
 	// Provide aliases for supported request methods
 	utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
@@ -28662,12 +28525,12 @@
 	});
 
 /***/ },
-/* 273 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(274);
+	var utils = __webpack_require__(273);
 	
 	var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 	var DEFAULT_CONTENT_TYPE = {
@@ -28733,7 +28596,7 @@
 	};
 
 /***/ },
-/* 274 */
+/* 273 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29002,7 +28865,7 @@
 	};
 
 /***/ },
-/* 275 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -29025,10 +28888,10 @@
 	        adapter = config.adapter;
 	      } else if (typeof XMLHttpRequest !== 'undefined') {
 	        // For browsers use XHR adapter
-	        adapter = __webpack_require__(276);
+	        adapter = __webpack_require__(275);
 	      } else if (typeof process !== 'undefined') {
 	        // For node use HTTP adapter
-	        adapter = __webpack_require__(276);
+	        adapter = __webpack_require__(275);
 	      }
 	
 	      if (typeof adapter === 'function') {
@@ -29042,18 +28905,18 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ },
-/* 276 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
-	var utils = __webpack_require__(274);
-	var buildURL = __webpack_require__(277);
-	var parseHeaders = __webpack_require__(278);
-	var transformData = __webpack_require__(279);
-	var isURLSameOrigin = __webpack_require__(280);
-	var btoa = typeof window !== 'undefined' && window.btoa || __webpack_require__(281);
-	var settle = __webpack_require__(282);
+	var utils = __webpack_require__(273);
+	var buildURL = __webpack_require__(276);
+	var parseHeaders = __webpack_require__(277);
+	var transformData = __webpack_require__(278);
+	var isURLSameOrigin = __webpack_require__(279);
+	var btoa = typeof window !== 'undefined' && window.btoa || __webpack_require__(280);
+	var settle = __webpack_require__(281);
 	
 	module.exports = function xhrAdapter(resolve, reject, config) {
 	  var requestData = config.data;
@@ -29146,7 +29009,7 @@
 	  // This is only done if running in a standard browser environment.
 	  // Specifically not if we're in a web worker, or react-native.
 	  if (utils.isStandardBrowserEnv()) {
-	    var cookies = __webpack_require__(283);
+	    var cookies = __webpack_require__(282);
 	
 	    // Add xsrf header
 	    var xsrfValue = config.withCredentials || isURLSameOrigin(config.url) ? cookies.read(config.xsrfCookieName) : undefined;
@@ -29204,12 +29067,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ },
-/* 277 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(274);
+	var utils = __webpack_require__(273);
 	
 	function encode(val) {
 	  return encodeURIComponent(val).replace(/%40/gi, '@').replace(/%3A/gi, ':').replace(/%24/g, '$').replace(/%2C/gi, ',').replace(/%20/g, '+').replace(/%5B/gi, '[').replace(/%5D/gi, ']');
@@ -29268,12 +29131,12 @@
 	};
 
 /***/ },
-/* 278 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(274);
+	var utils = __webpack_require__(273);
 	
 	/**
 	 * Parse headers into an object
@@ -29312,12 +29175,12 @@
 	};
 
 /***/ },
-/* 279 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(274);
+	var utils = __webpack_require__(273);
 	
 	/**
 	 * Transform the data for a request or a response
@@ -29337,12 +29200,12 @@
 	};
 
 /***/ },
-/* 280 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(274);
+	var utils = __webpack_require__(273);
 	
 	module.exports = utils.isStandardBrowserEnv() ?
 	
@@ -29405,7 +29268,7 @@
 	}();
 
 /***/ },
-/* 281 */
+/* 280 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29445,7 +29308,7 @@
 	module.exports = btoa;
 
 /***/ },
-/* 282 */
+/* 281 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29469,12 +29332,12 @@
 	};
 
 /***/ },
-/* 283 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(274);
+	var utils = __webpack_require__(273);
 	
 	module.exports = utils.isStandardBrowserEnv() ?
 	
@@ -29527,12 +29390,12 @@
 	}();
 
 /***/ },
-/* 284 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(274);
+	var utils = __webpack_require__(273);
 	
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -29584,7 +29447,7 @@
 	module.exports = InterceptorManager;
 
 /***/ },
-/* 285 */
+/* 284 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29605,7 +29468,7 @@
 	};
 
 /***/ },
-/* 286 */
+/* 285 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29623,7 +29486,7 @@
 	};
 
 /***/ },
-/* 287 */
+/* 286 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29639,7 +29502,7 @@
 	};
 
 /***/ },
-/* 288 */
+/* 287 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29672,7 +29535,7 @@
 	};
 
 /***/ },
-/* 289 */
+/* 288 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29685,6 +29548,149 @@
 	    FETCH_CARS: 'FETCH_CARS',
 	    SET_SEARCH_TEXT: 'SET_SEARCH_TEXT'
 	};
+
+/***/ },
+/* 289 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(160);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var CarsSingleView = function (_React$Component) {
+	    _inherits(CarsSingleView, _React$Component);
+	
+	    function CarsSingleView(props) {
+	        _classCallCheck(this, CarsSingleView);
+	
+	        return _possibleConstructorReturn(this, (CarsSingleView.__proto__ || Object.getPrototypeOf(CarsSingleView)).call(this, props));
+	    }
+	
+	    _createClass(CarsSingleView, [{
+	        key: 'findCarById',
+	        value: function findCarById() {
+	            var _this2 = this;
+	
+	            var foundCar = {};
+	
+	            this.props.carsJson.forEach(function (car) {
+	                if (car.id === _this2.props.params.id) {
+	                    foundCar = car;
+	                }
+	            });
+	
+	            return foundCar;
+	        }
+	    }, {
+	        key: 'limitDescription',
+	        value: function limitDescription(text, limit) {
+	            var shorText;
+	            if (text.length > limit) {
+	                shorText = text.substr(0, limit);
+	            }
+	
+	            return shorText + '...';
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var car = this.findCarById();
+	            if (Object.keys(car).length == 0) {
+	                console.log('IN NOT CAR');
+	                console.log(car);
+	                return _react2.default.createElement(
+	                    'h1',
+	                    null,
+	                    'Loading'
+	                );
+	            } else {
+	                console.log('IN  CAR');
+	                console.log(car);
+	                return _react2.default.createElement(
+	                    'div',
+	                    { className: 'row' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'car-singleview__main__base' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'car-singleview__main__base__header' },
+	                            _react2.default.createElement(
+	                                'h2',
+	                                null,
+	                                car.name
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'car-singleview__main__base__left' },
+	                            _react2.default.createElement('img', { src: car.main_picture, alt: '' })
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'car-singleview__main__base__right' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'car-singleview__main__base__right__price' },
+	                                _react2.default.createElement(
+	                                    'h2',
+	                                    null,
+	                                    car.price
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'car-singleview__main__base__right__location' },
+	                                _react2.default.createElement(
+	                                    'p',
+	                                    null,
+	                                    car.location
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'car-singleview__main__base__right__description' },
+	                                _react2.default.createElement(
+	                                    'p',
+	                                    null,
+	                                    this.limitDescription(car.description, 200)
+	                                )
+	                            )
+	                        )
+	                    )
+	                );
+	            }
+	        }
+	    }]);
+	
+	    return CarsSingleView;
+	}(_react2.default.Component);
+	
+	function mapStateToProps(state) {
+	    return {
+	        carsJson: state.carsJson
+	    };
+	}
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(CarsSingleView);
 
 /***/ },
 /* 290 */
@@ -30196,7 +30202,7 @@
 	
 	
 	// module
-	exports.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nhtml {\n  height: 100%;\n  background: #F2F2F2;\n  color: #555;\n  font-family: 'Lato', 'Arial', sans-serif;\n  font-weight: 300;\n  font-size: 20px;\n  text-rendering: optimizeLegibility;\n}\n\nbody {\n  height: 100vh;\n}\n\n.clearfix {\n  zoom: 1;\n}\n\n.clearfix:after {\n  content: '.';\n  clear: both;\n  display: block;\n  height: 0;\n  visibility: hidden;\n}\n\n.row {\n  max-width: 1140px;\n  margin: 0 auto;\n}\n\nsection {\n  padding: 80px 0;\n}\n\n.full-width-hr {\n  width: 90%;\n  display: block;\n  height: 2px;\n  content: \" \";\n  margin: 20px auto;\n  margin-bottom: 0;\n  background-color: gray;\n}\n\n.box {\n  padding: 1%;\n}\n\n.full-width-hr {\n  width: 90%;\n  display: block;\n  height: 2px;\n  content: \" \";\n  margin: 20px auto;\n  margin-bottom: 0;\n  background-color: gray;\n}\n\n.header__main__base {\n  height: 50px;\n  width: 100%;\n  background-color: #FFFFFF;\n  border-bottom: 1px solid #eaeaea;\n}\n\n.header__main__base__logo {\n  height: 50px;\n  width: 190px;\n  margin: 0 auto;\n}\n\n.header__main__base__logo img {\n  height: 100%;\n}\n\n.footer__main__base {\n  position: absolute;\n  right: 0;\n  left: 0;\n  padding: 1rem;\n  background-color: #232323;\n  text-align: center;\n  margin-top: 50px;\n}\n\n.footer__main__base__container {\n  max-width: 1140px;\n  margin: 0 auto;\n}\n\n.footer__main__base__logo {\n  height: 70px;\n  width: 200px;\n  padding-left: 150px;\n}\n\n.footer__main__base__logo img {\n  height: 100%;\n}\n\n.footer__main__base p {\n  color: white;\n  font-size: 0.7em;\n}\n\n.car-detail__main__base {\n  width: 600px;\n  height: 200px;\n  background-color: #FFFFFF;\n  border: 1px solid #eaeaea;\n  margin: 0 auto;\n  margin-top: 20px;\n}\n\n.car-detail__main__base__picture {\n  width: 40%;\n  display: inline-block;\n  height: 100%;\n}\n\n.car-detail__main__base__picture img {\n  width: 100%;\n  height: 100%;\n}\n\n.car-detail__main__base__description {\n  width: 60%;\n  float: right;\n  padding-top: 20px;\n  padding-left: 10px;\n}\n\n.car-detail__main__base__description:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n\n.car-detail__main__base__description__name {\n  color: #232323;\n  font-size: 0.6em;\n  padding-bottom: 8px;\n  width: 100%;\n}\n\n.car-detail__main__base__description__name h2 {\n  display: inline-block;\n}\n\n.car-detail__main__base__description__location {\n  font-size: 0.6em;\n}\n\n.car-detail__main__base__description span {\n  float: right;\n  padding-right: 10px;\n  color: #fd7a17;\n}\n\n.car-detail__main__base__description span:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n\n.car-detail__main__base:hover {\n  cursor: pointer;\n}\n\n.car-detail__main__base:hover h2 {\n  color: #ff4403;\n}\n\nul {\n  list-style: none;\n}\n\n.car-singleview__main__base {\n  width: 100%;\n  height: 400px;\n  margin-top: 100px;\n  color: black;\n}\n\n.car-singleview__main__base__header {\n  margin-bottom: 15px;\n}\n\n.car-singleview__main__base__left {\n  height: 100%;\n  width: 70%;\n  display: inline-block;\n}\n\n.car-singleview__main__base__left img {\n  width: 100%;\n  height: 100%;\n}\n\n.car-singleview__main__base__right {\n  width: 28%;\n  float: right;\n  display: inline-block;\n  background-color: white;\n  border: 1px solid #eaeaea;\n  padding: 15px;\n  font-size: 15px;\n  height: 100%;\n}\n\n.car-singleview__main__base__right:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n\n.car-singleview__main__base__right__price {\n  margin-bottom: 15px;\n  color: #fd7a17;\n}\n\n.car-singleview__main__base__right__location {\n  margin-bottom: 50px;\n}\n\n.search__main__base {\n  width: 240px;\n  padding: 12px 20px;\n  margin: 8px 0;\n  box-sizing: border-box;\n  margin: 0 auto;\n  margin-top: 20px;\n  font-size: 0.9em;\n}\n\n.search__main__base input {\n  padding: 5px;\n  color: #2b2a2a;\n}\n", ""]);
+	exports.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nhtml {\n  height: 100%;\n  background: #F2F2F2;\n  color: #555;\n  font-family: 'Lato', 'Arial', sans-serif;\n  font-weight: 300;\n  font-size: 20px;\n  text-rendering: optimizeLegibility;\n}\n\nbody {\n  height: 100vh;\n}\n\n.clearfix {\n  zoom: 1;\n}\n\n.clearfix:after {\n  content: '.';\n  clear: both;\n  display: block;\n  height: 0;\n  visibility: hidden;\n}\n\n.row {\n  max-width: 1140px;\n  margin: 0 auto;\n}\n\nsection {\n  padding: 80px 0;\n}\n\n.full-width-hr {\n  width: 90%;\n  display: block;\n  height: 2px;\n  content: \" \";\n  margin: 20px auto;\n  margin-bottom: 0;\n  background-color: gray;\n}\n\n.box {\n  padding: 1%;\n}\n\n.full-width-hr {\n  width: 90%;\n  display: block;\n  height: 2px;\n  content: \" \";\n  margin: 20px auto;\n  margin-bottom: 0;\n  background-color: gray;\n}\n\n.header__main__base {\n  height: 50px;\n  width: 100%;\n  background-color: #FFFFFF;\n  border-bottom: 1px solid #eaeaea;\n}\n\n.header__main__base__logo {\n  height: 50px;\n  width: 190px;\n  margin: 0 auto;\n}\n\n.header__main__base__logo img {\n  height: 100%;\n}\n\n.footer__main__base {\n  position: absolute;\n  right: 0;\n  left: 0;\n  padding: 1rem;\n  background-color: #232323;\n  text-align: center;\n  margin-top: 50px;\n}\n\n.footer__main__base__container {\n  max-width: 1140px;\n  margin: 0 auto;\n}\n\n.footer__main__base__logo {\n  height: 70px;\n  width: 200px;\n  padding-left: 150px;\n}\n\n@media (max-width: 540px) {\n  .footer__main__base__logo {\n    padding: 0;\n    margin: 0 auto;\n  }\n}\n\n.footer__main__base__logo img {\n  height: 100%;\n}\n\n.footer__main__base p {\n  color: white;\n  font-size: 0.7em;\n}\n\n.car-detail__main__base {\n  width: 600px;\n  height: 200px;\n  background-color: #FFFFFF;\n  border: 1px solid #eaeaea;\n  margin: 0 auto;\n  margin-top: 20px;\n}\n\n.car-detail__main__base__picture {\n  width: 40%;\n  display: inline-block;\n  height: 100%;\n}\n\n.car-detail__main__base__picture img {\n  width: 100%;\n  height: 100%;\n}\n\n.car-detail__main__base__description {\n  width: 60%;\n  float: right;\n  padding-top: 20px;\n  padding-left: 10px;\n}\n\n.car-detail__main__base__description:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n\n.car-detail__main__base__description__name {\n  color: #232323;\n  font-size: 0.6em;\n  padding-bottom: 8px;\n  width: 100%;\n}\n\n.car-detail__main__base__description__name h2 {\n  display: inline-block;\n}\n\n@media (max-width: 540px) {\n  .car-detail__main__base__description__name h2 {\n    margin-top: 5px;\n  }\n}\n\n.car-detail__main__base__description__location {\n  font-size: 0.6em;\n}\n\n.car-detail__main__base__description span {\n  float: right;\n  padding-right: 10px;\n  color: #fd7a17;\n}\n\n@media (max-width: 540px) {\n  .car-detail__main__base__description span {\n    float: none;\n    padding: 0;\n    margin-top: 20px;\n  }\n}\n\n.car-detail__main__base__description span:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n\n.car-detail__main__base:hover {\n  cursor: pointer;\n}\n\n.car-detail__main__base:hover h2 {\n  color: #ff4403;\n}\n\nul {\n  list-style: none;\n}\n\n.car-singleview__main__base {\n  width: 100%;\n  height: 400px;\n  margin-top: 50px;\n  color: black;\n}\n\n@media (max-width: 540px) {\n  .car-singleview__main__base {\n    height: 200px;\n  }\n}\n\n.car-singleview__main__base__header {\n  margin-bottom: 15px;\n}\n\n.car-singleview__main__base__left {\n  height: 100%;\n  width: 70%;\n  display: inline-block;\n}\n\n@media (max-width: 540px) {\n  .car-singleview__main__base__left {\n    width: 50%;\n  }\n}\n\n.car-singleview__main__base__left img {\n  width: 100%;\n  height: 100%;\n}\n\n.car-singleview__main__base__right {\n  width: 28%;\n  float: right;\n  display: inline-block;\n  background-color: white;\n  border: 1px solid #eaeaea;\n  padding: 15px;\n  font-size: 15px;\n  height: 100%;\n}\n\n@media (max-width: 540px) {\n  .car-singleview__main__base__right {\n    width: 48%;\n  }\n}\n\n.car-singleview__main__base__right:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n\n.car-singleview__main__base__right__price {\n  margin-bottom: 15px;\n  color: #fd7a17;\n}\n\n@media (max-width: 540px) {\n  .car-singleview__main__base__right__price {\n    margin-bottom: 10px;\n  }\n}\n\n.car-singleview__main__base__right__location {\n  margin-bottom: 50px;\n}\n\n@media (max-width: 540px) {\n  .car-singleview__main__base__right__location {\n    margin-bottom: 10px;\n  }\n}\n\n@media (max-width: 540px) {\n  .car-singleview__main__base__right__description {\n    font-size: 0.8em;\n  }\n}\n\n.search__main__base {\n  width: 240px;\n  padding: 12px 20px;\n  margin: 8px 0;\n  box-sizing: border-box;\n  margin: 0 auto;\n  margin-top: 20px;\n  font-size: 0.9em;\n}\n\n.search__main__base input {\n  padding: 5px;\n  color: #2b2a2a;\n}\n", ""]);
 	
 	// exports
 
@@ -30283,7 +30289,7 @@
 	});
 	exports.carsReducer = undefined;
 	
-	var _types = __webpack_require__(289);
+	var _types = __webpack_require__(288);
 	
 	var carsReducer = exports.carsReducer = function carsReducer() {
 	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
@@ -30309,7 +30315,7 @@
 	});
 	exports.searchReducer = undefined;
 	
-	var _types = __webpack_require__(289);
+	var _types = __webpack_require__(288);
 	
 	var searchReducer = exports.searchReducer = function searchReducer() {
 	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
