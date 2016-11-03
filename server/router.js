@@ -1,15 +1,12 @@
+const jsonService = require('./services/jsonService.js');
 
 module.exports = function(app) {
+    app.get('/cars', function(req, res) {
+        var json;
+        res.setHeader('Content-Type', 'application/json');
 
-    //app.get('/someEndPoint', function(req, res) {
-    //    Cars.find({}, function(err, allGoods){
-    //        if(err){
-    //            console.log("Error!");
-    //            console.log(err);
-    //        }else{
-    //            res.send(allGoods);
-    //        }
-    //    });
-    //});
-
+        jsonService.getCarsJson(function(json){
+                res.send(json);
+        });
+    });
 }

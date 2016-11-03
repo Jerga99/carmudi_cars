@@ -3,17 +3,20 @@ import React from 'react';
 class CarsDetail extends React.Component {
 
     render(){
+
+        const {location, price, name, image} = this.props;
+
         return(
             <div className='car-detail__main__base'>
                 <div className='car-detail__main__base__picture'>
-                    <img src='http://blog.caranddriver.com/wp-content/uploads/2015/11/BMW-2-series.jpg' alt=''/>
+                    <img src={image} alt=''/>
                 </div>
                 <div className='car-detail__main__base__description'>
                     <div className='car-detail__main__base__description__name'>
-                        <h2>BMW some brand 2013</h2> <span><h2>880,000,000 d</h2></span>
+                        <h2>{name}</h2> <span><h2>{price}d</h2></span>
                     </div>
                     <div className='car-detail__main__base__description__location'>
-                        <p>Location, very long location</p>
+                        <p>{location}</p>
 
                     </div>
                 </div>

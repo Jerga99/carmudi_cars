@@ -1,10 +1,11 @@
 import * as redux from 'redux';
 import thunk from 'redux-thunk';
+import {carsReducer} from './cars_reducer';
 
 export var configure = (initialState = {}) => {
 
   const reducer = redux.combineReducers({
-    // data: comingFromReducerData
+     carsJson: carsReducer
   });
 
   var store = redux.createStore(reducer, initialState,
