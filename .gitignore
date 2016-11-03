@@ -1,5 +1,4 @@
 node_modules/
 .idea
 
-secret_variable.js
-client/public
+client/public/**
