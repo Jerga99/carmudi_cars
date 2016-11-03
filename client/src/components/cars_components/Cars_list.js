@@ -1,44 +1,39 @@
 import React from 'react';
 import CarsDetail from './Cars_detail';
-import algorithms from '../../algorithms/index';
-import * as actions from '../../actions/index';
-import {connect} from 'react-redux';
+import { browserHistory } from 'react-router';
 
 class CarsList extends React.Component {
 
     constructor(props){
-
         super(props);
-        var {dispatch} = this.props;
-        dispatch(actions.fetchCars());
-
-        this.state = {
-            cars: []
-        };
     }
 
-    renderCars(carsArr){
+    redirectToSingleView(id){
+        return function() {
+            /* eslint-disable no-alert, no-console */
+            console.log('PCEI');
+            browserHistory.push(`car/${id}`);};
+    }
 
-        return carsArr.map((carObj) => {
-           return <li><CarsDetail image = {carObj.image} location = {carObj.location} price = {carObj.price} name = {carObj.name}></CarsDetail></li>;
+
+    renderCars(){
+        /* eslint-disable no-alert, no-console */
+        console.log(this.props.cars);
+
+        return this.props.cars.map((carObj) => {
+           return <li><CarsDetail onClickHandler={this.redirectToSingleView(carObj.id)} key = {carObj.id} image = {carObj.thumbnail} location = {carObj.location} price = {carObj.price} name = {carObj.name}></CarsDetail></li>;
         });
     }
 
         render(){
-           var carsArr = algorithms.parseJson(this.props.carsJson);
 
             return(
                 <ul>
-                    {this.renderCars(carsArr)}
+                    {this.renderCars()}
                 </ul>
             );
         }
     }
 
-function mapStateToProps(state) {
-    return {
-        carsJson: state.carsJson
-    };
-}
 
-export default connect(mapStateToProps)(CarsList);
+export default (CarsList);
