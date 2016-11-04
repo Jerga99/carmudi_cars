@@ -3,26 +3,28 @@ import CarsList from './Cars_list';
 import algorithms from '../../algorithms/index';
 import {connect} from 'react-redux';
 import InputSearch from '../common/input_search';
+import Pagination from '../common/pagination';
 
 class Cars extends React.Component {
 
     constructor(props){
         super(props);
+
     }
 
     renderCars(){
-        var cars;
+        var cars = [];
 
         if(!this.props.carsJson){
             return (<h1>LOADING...</h1>);
         }
         else {
-            cars = algorithms.parseJson(this.props.carsJson);
-            cars = algorithms.filterByText(cars,'name', this.props.searchText);
+            cars = algorithms.filterByText(this.props.carsJson,'name', this.props.searchText);
 
             return(<div className='row'>
                     <InputSearch></InputSearch>
                     <CarsList cars={cars}></CarsList>
+                    <Pagination></Pagination>
                 </div>
             );
         }
