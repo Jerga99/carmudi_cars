@@ -34,12 +34,8 @@ class CarsSingleView extends React.Component {
     render(){
         const car = this.findCarById();
         if (Object.keys(car).length == 0){
-            console.log('IN NOT CAR');
-            console.log(car);
             return(<h1>Loading</h1>);
         }else {
-            console.log('IN  CAR');
-            console.log(car);
             return (
                 <div className='row'>
                     <div className='car-singleview__main__base'>

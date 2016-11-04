@@ -1,8 +1,8 @@
 import axios from 'axios';
 import {types} from './types';
 
-const fetchOfferSuccess = (JSON) => {
-    const carsJSON = JSON.data.cars;
+const fetchCarsSuccess = (JSON) => {
+    const carsJSON = JSON.data;
     return {
         type: types.FETCH_CARS,
         carsJSON
@@ -12,8 +12,18 @@ const fetchOfferSuccess = (JSON) => {
 export const fetchCars = () => {
 
     return (dispatch) => {
-        axios.get('/cars').then( resp => {
-           return dispatch(fetchOfferSuccess(resp));
+        axios.get('/cars?page=1').then( resp => {
+           return dispatch(fetchCarsSuccess(resp));
+        });
+    };
+};
+
+
+export const fetchCarsPartial = (page) => {
+
+    return (dispatch) => {
+        axios.get(`/cars?page=${page}`).then( resp => {
+            return dispatch(fetchCarsSuccess(resp));
         });
     };
 };
