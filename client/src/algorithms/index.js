@@ -11,6 +11,20 @@ const filterByTextImpl = (cars, filterType, searchText) => {
     return filteredCars;
 };
 
+const countNumOfPagesImp = (numOfCars) =>{
+    var pages, leftCars;
+    this.setOveralNumOfCars(numOfCars.toString());
+
+    pages = Math.floor(numOfCars/10); // pages
+    leftCars= numOfCars%10; // cars
+
+    if(leftCars !== 0 && leftCars < 10 ){
+        pages += 1;
+    }
+
+    return pages;
+};
+
 
 module.exports = {
 
@@ -27,5 +41,9 @@ module.exports = {
     filterByText:  (cars, filterType, searchText) => {
 
         return filterByTextImpl(cars,filterType, searchText);
+    },
+
+    countNumberOfPages: (numOfCars) => {
+        return countNumOfPagesImp(numOfCars);
     }
 };

@@ -104,6 +104,11 @@
 	
 	store.dispatch(actions.fetchCars()); //load initial data
 	
+	store.subscribe(function () {
+	  var state = store.getState();
+	  console.log('New state', state);
+	});
+	
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRedux.Provider,
 	  { store: store },
@@ -28012,6 +28017,10 @@
 	
 	var _pagination2 = _interopRequireDefault(_pagination);
 	
+	var _page_display = __webpack_require__(323);
+	
+	var _page_display2 = _interopRequireDefault(_page_display);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28047,6 +28056,7 @@
 	                    'div',
 	                    { className: 'row' },
 	                    _react2.default.createElement(_input_search2.default, null),
+	                    _react2.default.createElement(_page_display2.default, null),
 	                    _react2.default.createElement(_Cars_list2.default, { cars: cars }),
 	                    _react2.default.createElement(_pagination2.default, null)
 	                );
@@ -28262,6 +28272,20 @@
 	    return filteredCars;
 	};
 	
+	var countNumOfPagesImp = function countNumOfPagesImp(numOfCars) {
+	    var pages, leftCars;
+	    undefined.setOveralNumOfCars(numOfCars.toString());
+	
+	    pages = Math.floor(numOfCars / 10); // pages
+	    leftCars = numOfCars % 10; // cars
+	
+	    if (leftCars !== 0 && leftCars < 10) {
+	        pages += 1;
+	    }
+	
+	    return pages;
+	};
+	
 	module.exports = {
 	
 	    parseJson: function parseJson(jsonObj) {
@@ -28277,6 +28301,10 @@
 	    filterByText: function filterByText(cars, filterType, searchText) {
 	
 	        return filterByTextImpl(cars, filterType, searchText);
+	    },
+	
+	    countNumberOfPages: function countNumberOfPages(numOfCars) {
+	        return countNumOfPagesImp(numOfCars);
 	    }
 	};
 
@@ -28360,7 +28388,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.setSearchText = exports.fetchCarsPartial = exports.fetchCars = undefined;
+	exports.setCurentPage = exports.setCarCount = exports.setSearchText = exports.fetchCarsPartial = exports.fetchCars = undefined;
 	
 	var _axios = __webpack_require__(270);
 	
@@ -28401,6 +28429,22 @@
 	    return {
 	        type: _types.types.SET_SEARCH_TEXT,
 	        searchText: searchText
+	    };
+	};
+	
+	var setCarCount = exports.setCarCount = function setCarCount(carsCount) {
+	
+	    return {
+	        type: _types.types.OVERALL_NUM_CARS,
+	        carsCount: carsCount
+	    };
+	};
+	
+	var setCurentPage = exports.setCurentPage = function setCurentPage(page) {
+	
+	    return {
+	        type: _types.types.CURENT_PAGE,
+	        page: page
 	    };
 	};
 
@@ -29548,7 +29592,9 @@
 	var types = exports.types = {
 	
 	    FETCH_CARS: 'FETCH_CARS',
-	    SET_SEARCH_TEXT: 'SET_SEARCH_TEXT'
+	    SET_SEARCH_TEXT: 'SET_SEARCH_TEXT',
+	    OVERALL_NUM_CARS: 'OVERAL_NUM_CARS',
+	    CURENT_PAGE: 'CURENT_PAGE'
 	};
 
 /***/ },
@@ -29620,6 +29666,7 @@
 	        key: 'onClickHandler',
 	        value: function onClickHandler(e) {
 	            e.preventDefault();
+	            this.setCurrentPage(e.target.value.toString());
 	            var dispatch = this.props.dispatch;
 	
 	            dispatch(actions.fetchCarsPartial(e.target.value));
@@ -29629,6 +29676,7 @@
 	        key: 'countNumOfPages',
 	        value: function countNumOfPages(numOfCars) {
 	            var pages, leftCars;
+	            this.setOveralNumOfCars(numOfCars.toString());
 	
 	            pages = Math.floor(numOfCars / 10); // pages
 	            leftCars = numOfCars % 10; // cars
@@ -29638,6 +29686,20 @@
 	            }
 	
 	            return pages;
+	        }
+	    }, {
+	        key: 'setOveralNumOfCars',
+	        value: function setOveralNumOfCars(cars) {
+	            var dispatch = this.props.dispatch;
+	
+	            dispatch(actions.setCarCount(cars));
+	        }
+	    }, {
+	        key: 'setCurrentPage',
+	        value: function setCurrentPage(page) {
+	            var dispatch = this.props.dispatch;
+	
+	            dispatch(actions.setCurentPage(page));
 	        }
 	    }, {
 	        key: 'renderPagesButtons',
@@ -31203,7 +31265,7 @@
 	
 	
 	// module
-	exports.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nhtml {\n  height: 100%;\n  background: #F2F2F2;\n  color: #555;\n  font-family: 'Lato', 'Arial', sans-serif;\n  font-weight: 300;\n  font-size: 20px;\n  text-rendering: optimizeLegibility;\n}\n\nbody {\n  height: 100vh;\n}\n\n.clearfix {\n  zoom: 1;\n}\n\n.clearfix:after {\n  content: '.';\n  clear: both;\n  display: block;\n  height: 0;\n  visibility: hidden;\n}\n\n.row {\n  max-width: 1140px;\n  margin: 0 auto;\n}\n\nsection {\n  padding: 80px 0;\n}\n\n.full-width-hr {\n  width: 90%;\n  display: block;\n  height: 2px;\n  content: \" \";\n  margin: 20px auto;\n  margin-bottom: 0;\n  background-color: gray;\n}\n\n.box {\n  padding: 1%;\n}\n\n.full-width-hr {\n  width: 90%;\n  display: block;\n  height: 2px;\n  content: \" \";\n  margin: 20px auto;\n  margin-bottom: 0;\n  background-color: gray;\n}\n\n.header__main__base {\n  height: 50px;\n  width: 100%;\n  background-color: #FFFFFF;\n  border-bottom: 1px solid #eaeaea;\n}\n\n.header__main__base__logo {\n  height: 50px;\n  width: 190px;\n  margin: 0 auto;\n}\n\n.header__main__base__logo img {\n  height: 100%;\n}\n\n.footer__main__base {\n  position: absolute;\n  right: 0;\n  left: 0;\n  padding: 1rem;\n  background-color: #232323;\n  text-align: center;\n  margin-top: 50px;\n}\n\n.footer__main__base__container {\n  max-width: 1140px;\n  margin: 0 auto;\n}\n\n.footer__main__base__logo {\n  height: 70px;\n  width: 200px;\n  padding-left: 150px;\n}\n\n@media (max-width: 540px) {\n  .footer__main__base__logo {\n    padding: 0;\n    margin: 0 auto;\n  }\n}\n\n.footer__main__base__logo img {\n  height: 100%;\n}\n\n.footer__main__base p {\n  color: white;\n  font-size: 0.7em;\n}\n\n.car-detail__main__base {\n  width: 600px;\n  height: 200px;\n  background-color: #FFFFFF;\n  border: 1px solid #eaeaea;\n  margin: 0 auto;\n  margin-top: 20px;\n}\n\n.car-detail__main__base__picture {\n  width: 40%;\n  display: inline-block;\n  height: 100%;\n}\n\n.car-detail__main__base__picture img {\n  width: 100%;\n  height: 100%;\n}\n\n.car-detail__main__base__description {\n  width: 60%;\n  float: right;\n  padding-top: 20px;\n  padding-left: 10px;\n}\n\n.car-detail__main__base__description:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n\n.car-detail__main__base__description__name {\n  color: #232323;\n  font-size: 0.6em;\n  padding-bottom: 8px;\n  width: 100%;\n}\n\n.car-detail__main__base__description__name h2 {\n  display: inline-block;\n}\n\n@media (max-width: 540px) {\n  .car-detail__main__base__description__name h2 {\n    margin-top: 5px;\n  }\n}\n\n.car-detail__main__base__description__location {\n  font-size: 0.6em;\n}\n\n.car-detail__main__base__description span {\n  float: right;\n  padding-right: 10px;\n  color: #fd7a17;\n}\n\n@media (max-width: 540px) {\n  .car-detail__main__base__description span {\n    float: none;\n    padding: 0;\n    margin-top: 20px;\n  }\n}\n\n.car-detail__main__base__description span:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n\n.car-detail__main__base:hover {\n  cursor: pointer;\n}\n\n.car-detail__main__base:hover h2 {\n  color: #ff4403;\n}\n\nul {\n  list-style: none;\n}\n\n.car-singleview__main__base {\n  width: 100%;\n  height: 400px;\n  margin-top: 50px;\n  color: black;\n}\n\n@media (max-width: 540px) {\n  .car-singleview__main__base {\n    height: 200px;\n  }\n}\n\n.car-singleview__main__base__header {\n  margin-bottom: 15px;\n}\n\n.car-singleview__main__base__left {\n  height: 100%;\n  width: 70%;\n  display: inline-block;\n}\n\n@media (max-width: 540px) {\n  .car-singleview__main__base__left {\n    width: 50%;\n  }\n}\n\n.car-singleview__main__base__left img {\n  width: 100%;\n  height: 100%;\n}\n\n.car-singleview__main__base__right {\n  width: 28%;\n  float: right;\n  display: inline-block;\n  background-color: white;\n  border: 1px solid #eaeaea;\n  padding: 15px;\n  font-size: 15px;\n  height: 100%;\n}\n\n@media (max-width: 540px) {\n  .car-singleview__main__base__right {\n    width: 48%;\n  }\n}\n\n.car-singleview__main__base__right:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n\n.car-singleview__main__base__right__price {\n  margin-bottom: 15px;\n  color: #fd7a17;\n}\n\n@media (max-width: 540px) {\n  .car-singleview__main__base__right__price {\n    margin-bottom: 10px;\n  }\n}\n\n.car-singleview__main__base__right__location {\n  margin-bottom: 50px;\n}\n\n@media (max-width: 540px) {\n  .car-singleview__main__base__right__location {\n    margin-bottom: 10px;\n  }\n}\n\n@media (max-width: 540px) {\n  .car-singleview__main__base__right__description {\n    font-size: 0.8em;\n  }\n}\n\n.search__main__base {\n  width: 240px;\n  padding: 12px 20px;\n  margin: 8px 0;\n  box-sizing: border-box;\n  margin: 0 auto;\n  margin-top: 20px;\n  font-size: 0.9em;\n}\n\n.search__main__base input {\n  padding: 5px;\n  color: #2b2a2a;\n}\n\n.pagination__main__base {\n  width: 200px;\n  margin: 0 auto;\n  margin-top: 10px;\n}\n\n.pagination__main__base input {\n  padding: 4px;\n  cursor: pointer;\n  color: #848484;\n}\n\n.pagination__main__base input:hover {\n  border: 1px solid black;\n  color: black;\n}\n", ""]);
+	exports.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nhtml {\n  height: 100%;\n  background: #F2F2F2;\n  color: #555;\n  font-family: 'Lato', 'Arial', sans-serif;\n  font-weight: 300;\n  font-size: 20px;\n  text-rendering: optimizeLegibility;\n}\n\nbody {\n  height: 100vh;\n}\n\n.clearfix {\n  zoom: 1;\n}\n\n.clearfix:after {\n  content: '.';\n  clear: both;\n  display: block;\n  height: 0;\n  visibility: hidden;\n}\n\n.row {\n  max-width: 1140px;\n  margin: 0 auto;\n}\n\nsection {\n  padding: 80px 0;\n}\n\n.full-width-hr {\n  width: 90%;\n  display: block;\n  height: 2px;\n  content: \" \";\n  margin: 20px auto;\n  margin-bottom: 0;\n  background-color: gray;\n}\n\n.box {\n  padding: 1%;\n}\n\n.full-width-hr {\n  width: 90%;\n  display: block;\n  height: 2px;\n  content: \" \";\n  margin: 20px auto;\n  margin-bottom: 0;\n  background-color: gray;\n}\n\n.header__main__base {\n  height: 50px;\n  width: 100%;\n  background-color: #FFFFFF;\n  border-bottom: 1px solid #eaeaea;\n}\n\n.header__main__base__logo {\n  height: 50px;\n  width: 190px;\n  margin: 0 auto;\n}\n\n.header__main__base__logo img {\n  height: 100%;\n}\n\n.footer__main__base {\n  position: absolute;\n  right: 0;\n  left: 0;\n  padding: 1rem;\n  background-color: #232323;\n  text-align: center;\n  margin-top: 50px;\n}\n\n.footer__main__base__container {\n  max-width: 1140px;\n  margin: 0 auto;\n}\n\n.footer__main__base__logo {\n  height: 70px;\n  width: 200px;\n  padding-left: 150px;\n}\n\n@media (max-width: 540px) {\n  .footer__main__base__logo {\n    padding: 0;\n    margin: 0 auto;\n  }\n}\n\n.footer__main__base__logo img {\n  height: 100%;\n}\n\n.footer__main__base p {\n  color: white;\n  font-size: 0.7em;\n}\n\n.car-detail__main__base {\n  width: 600px;\n  height: 200px;\n  background-color: #FFFFFF;\n  border: 1px solid #eaeaea;\n  margin: 0 auto;\n  margin-top: 20px;\n}\n\n.car-detail__main__base__picture {\n  width: 40%;\n  display: inline-block;\n  height: 100%;\n}\n\n.car-detail__main__base__picture img {\n  width: 100%;\n  height: 100%;\n}\n\n.car-detail__main__base__description {\n  width: 60%;\n  float: right;\n  padding-top: 20px;\n  padding-left: 10px;\n}\n\n.car-detail__main__base__description:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n\n.car-detail__main__base__description__name {\n  color: #232323;\n  font-size: 0.6em;\n  padding-bottom: 8px;\n  width: 100%;\n}\n\n.car-detail__main__base__description__name h2 {\n  display: inline-block;\n}\n\n@media (max-width: 540px) {\n  .car-detail__main__base__description__name h2 {\n    margin-top: 5px;\n  }\n}\n\n.car-detail__main__base__description__location {\n  font-size: 0.6em;\n}\n\n.car-detail__main__base__description span {\n  float: right;\n  padding-right: 10px;\n  color: #fd7a17;\n}\n\n@media (max-width: 540px) {\n  .car-detail__main__base__description span {\n    float: none;\n    padding: 0;\n    margin-top: 20px;\n  }\n}\n\n.car-detail__main__base__description span:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n\n.car-detail__main__base:hover {\n  cursor: pointer;\n}\n\n.car-detail__main__base:hover h2 {\n  color: #ff4403;\n}\n\nul {\n  list-style: none;\n}\n\n.car-singleview__main__base {\n  width: 100%;\n  height: 400px;\n  margin-top: 50px;\n  color: black;\n}\n\n@media (max-width: 540px) {\n  .car-singleview__main__base {\n    height: 200px;\n  }\n}\n\n.car-singleview__main__base__header {\n  margin-bottom: 15px;\n}\n\n.car-singleview__main__base__left {\n  height: 100%;\n  width: 70%;\n  display: inline-block;\n}\n\n@media (max-width: 540px) {\n  .car-singleview__main__base__left {\n    width: 50%;\n  }\n}\n\n.car-singleview__main__base__left img {\n  width: 100%;\n  height: 100%;\n}\n\n.car-singleview__main__base__right {\n  width: 28%;\n  float: right;\n  display: inline-block;\n  background-color: white;\n  border: 1px solid #eaeaea;\n  padding: 15px;\n  font-size: 15px;\n  height: 100%;\n}\n\n@media (max-width: 540px) {\n  .car-singleview__main__base__right {\n    width: 48%;\n  }\n}\n\n.car-singleview__main__base__right:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n\n.car-singleview__main__base__right__price {\n  margin-bottom: 15px;\n  color: #fd7a17;\n}\n\n@media (max-width: 540px) {\n  .car-singleview__main__base__right__price {\n    margin-bottom: 10px;\n  }\n}\n\n.car-singleview__main__base__right__location {\n  margin-bottom: 50px;\n}\n\n@media (max-width: 540px) {\n  .car-singleview__main__base__right__location {\n    margin-bottom: 10px;\n  }\n}\n\n@media (max-width: 540px) {\n  .car-singleview__main__base__right__description {\n    font-size: 0.8em;\n  }\n}\n\n.search__main__base {\n  width: 240px;\n  padding: 12px 20px;\n  margin: 8px 0;\n  box-sizing: border-box;\n  margin: 0 auto;\n  margin-top: 20px;\n  font-size: 0.9em;\n}\n\n.search__main__base input {\n  padding: 5px;\n  color: #2b2a2a;\n}\n\n.pagination__main__base {\n  width: 200px;\n  margin: 0 auto;\n  margin-top: 10px;\n}\n\n.pagination__main__base input {\n  padding: 4px;\n  cursor: pointer;\n  color: #848484;\n}\n\n.pagination__main__base input:hover {\n  border: 1px solid black;\n  color: black;\n}\n\n.pagedisplay__main__base {\n  margin-left: 23%;\n}\n", ""]);
 	
 	// exports
 
@@ -31231,6 +31293,8 @@
 	
 	var _search_reducer = __webpack_require__(321);
 	
+	var _common_reducer = __webpack_require__(322);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -31241,7 +31305,9 @@
 	
 	    var reducer = redux.combineReducers({
 	        carsJson: _cars_reducer.carsReducer,
-	        searchText: _search_reducer.searchReducer
+	        searchText: _search_reducer.searchReducer,
+	        carsCount: _common_reducer.carsCountReducer,
+	        currentPage: _common_reducer.currentPageReducer
 	    });
 	
 	    var store = redux.createStore(reducer, initialState, redux.compose(redux.applyMiddleware(_reduxThunk2.default), window.devToolsExtension ? window.devToolsExtension() : function (f) {
@@ -31330,6 +31396,136 @@
 	            return state;
 	    }
 	};
+
+/***/ },
+/* 322 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.currentPageReducer = exports.carsCountReducer = undefined;
+	
+	var _types = __webpack_require__(288);
+	
+	var carsCountReducer = exports.carsCountReducer = function carsCountReducer() {
+	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+	    var action = arguments[1];
+	
+	
+	    switch (action.type) {
+	        case _types.types.OVERALL_NUM_CARS:
+	            return action.carsCount;
+	        default:
+	            return state;
+	    }
+	};
+	
+	var currentPageReducer = exports.currentPageReducer = function currentPageReducer() {
+	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+	    var action = arguments[1];
+	
+	
+	    switch (action.type) {
+	        case _types.types.CURENT_PAGE:
+	            return action.page;
+	        default:
+	            return state;
+	    }
+	};
+
+/***/ },
+/* 323 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(160);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var PageDisplay = function (_Component) {
+	    _inherits(PageDisplay, _Component);
+	
+	    function PageDisplay() {
+	        _classCallCheck(this, PageDisplay);
+	
+	        return _possibleConstructorReturn(this, (PageDisplay.__proto__ || Object.getPrototypeOf(PageDisplay)).apply(this, arguments));
+	    }
+	
+	    _createClass(PageDisplay, [{
+	        key: 'renderPageDisplay',
+	        value: function renderPageDisplay() {
+	            if (this.props.carsCount) {
+	
+	                var currentPage = this.props.currentPage ? this.props.currentPage : '1';
+	                var pages = this.countNumOfPages(parseInt(this.props.carsCount));
+	
+	                return _react2.default.createElement(
+	                    'p',
+	                    null,
+	                    'Displaying ',
+	                    currentPage,
+	                    ' - ',
+	                    pages,
+	                    '  of ',
+	                    this.props.carsCount,
+	                    ' Results'
+	                );
+	            }
+	        }
+	    }, {
+	        key: 'countNumOfPages',
+	        value: function countNumOfPages(numOfCars) {
+	            var pages, leftCars;
+	
+	            pages = Math.floor(numOfCars / 10); // pages
+	            leftCars = numOfCars % 10; // cars
+	
+	            if (leftCars !== 0 && leftCars < 10) {
+	                pages += 1;
+	            }
+	
+	            return pages;
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'pagedisplay__main__base' },
+	                this.renderPageDisplay()
+	            );
+	        }
+	    }]);
+	
+	    return PageDisplay;
+	}(_react.Component);
+	
+	exports.default = (0, _reactRedux.connect)(function (state) {
+	    return {
+	        carsCount: state.carsCount,
+	        currentPage: state.currentPage
+	    };
+	})(PageDisplay);
 
 /***/ }
 /******/ ]);

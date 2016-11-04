@@ -25,6 +25,7 @@ class Pagination extends Component {
 
     onClickHandler(e){
             e.preventDefault();
+            this.setCurrentPage((e.target.value.toString()));
             var {dispatch} = this.props;
              dispatch(actions.fetchCarsPartial(e.target.value));
         Scroll.animateScroll.scrollToTop();
@@ -32,6 +33,7 @@ class Pagination extends Component {
 
     countNumOfPages(numOfCars){
         var pages, leftCars;
+        this.setOveralNumOfCars(numOfCars.toString());
 
         pages = Math.floor(numOfCars/10); // pages
         leftCars= numOfCars%10; // cars
@@ -41,6 +43,16 @@ class Pagination extends Component {
         }
 
         return pages;
+    }
+
+    setOveralNumOfCars(cars){
+        var {dispatch} = this.props;
+        dispatch(actions.setCarCount(cars));
+    }
+
+    setCurrentPage(page){
+        var {dispatch} = this.props;
+        dispatch(actions.setCurentPage(page));
     }
 
     renderPagesButtons() {

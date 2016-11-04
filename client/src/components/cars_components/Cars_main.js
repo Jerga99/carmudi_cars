@@ -4,6 +4,7 @@ import algorithms from '../../algorithms/index';
 import {connect} from 'react-redux';
 import InputSearch from '../common/input_search';
 import Pagination from '../common/pagination';
+import PageDisplay from '../common/page_display';
 
 class Cars extends React.Component {
 
@@ -23,6 +24,7 @@ class Cars extends React.Component {
 
             return(<div className='row'>
                     <InputSearch></InputSearch>
+                    <PageDisplay></PageDisplay>
                     <CarsList cars={cars}></CarsList>
                     <Pagination></Pagination>
                 </div>

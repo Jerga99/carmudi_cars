@@ -36,3 +36,19 @@ export const setSearchText = (searchText) => {
         searchText
     };
 };
+
+export const setCarCount = (carsCount) => {
+
+    return {
+        type: types.OVERALL_NUM_CARS,
+        carsCount
+    };
+};
+
+export const setCurentPage = (page) => {
+
+    return {
+        type: types.CURENT_PAGE,
+        page
+    };
+};

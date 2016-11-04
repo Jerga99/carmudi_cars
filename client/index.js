@@ -21,6 +21,11 @@ var store = require('./src/reducers/index').configure();
 
 store.dispatch(actions.fetchCars()); //load initial data
 
+ store.subscribe(() => {
+   var state = store.getState();
+   console.log('New state', state);
+ });
+
 ReactDOM.render(
   <Provider store={store}>
   <Router history={browserHistory}>
