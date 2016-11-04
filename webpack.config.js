@@ -25,7 +25,6 @@ function createConfig(isDebug) {
         exclude: path.join(__dirname, "..", "node_modules"),
         loader: 'babel'
       },
-        { test: /\.js$/, loader:'eslint-loader', exclude: /node_modules/},
         {test: /(\.css)$/, loaders: ['style', 'css']},
         {
           test: /\.scss$/,
